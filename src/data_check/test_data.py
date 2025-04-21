@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import scipy.stats
+import pdb
 
 
 def test_column_names(data):
@@ -63,3 +64,20 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
 ########################################################
 # Implement here test_row_count and test_price_range   #
 ########################################################
+def test_row_count(data):
+    """Check the size of the dataset is reasonable ( not too small, no too large )
+
+    Args:
+        data (pd.DataFrame): dataset
+    """
+    assert 15000 < data.shape[0] < 1000000, "The dataset has a wrong size"
+
+def test_price_range(data, min_price, max_price):
+    """Check that the price is between min_price and max_price for every item 
+
+    Args:
+        data (pd.DataFrame): The dataset
+        min_price (float): The minimum value
+        max_price (float): The maximum value
+    """
+    assert data['price'].between(min_price, max_price).all(), "Exist prices out of the range"
